@@ -1,0 +1,41 @@
+# Sensi AgroConnect - Project TODO
+
+- [x] Database schema: users (with role), products, inquiries
+- [x] Backend routers: products (CRUD), inquiries (CRUD + status), profile
+- [x] Google Fonts integration (Inter + Playfair Display)
+- [x] Global CSS theme with elegant color palette
+- [x] Public landing page with hero, features overview, CTA
+- [x] Top navigation bar with auth-aware links
+- [x] Role selection page (Farmer / Buyer) on first login
+- [x] Farmer dashboard: create, edit, delete product listings
+- [x] Farmer dashboard: view incoming inquiries with status
+- [x] Buyer dashboard: browse all listings
+- [x] Buyer dashboard: search and filter by crop type / location
+- [x] Buyer dashboard: send purchase inquiries to farmers
+- [x] Inquiry/messaging system with status tracking (pending, accepted, declined)
+- [x] User profile page with account details, role, activity history
+- [x] Polished, elegant UI with consistent premium design
+- [x] Unit tests for backend routers (18 tests passing)
+- [x] Enforce mandatory role selection for authenticated users without Farmer/Buyer role
+- [x] Add activity history with concrete entries on profile page
+- [x] Vitest unit tests for backend routers
+- [x] Orders table in database schema (linked to inquiries, with status lifecycle)
+- [x] Farmer response message field when accepting/declining inquiries
+- [x] Order creation flow: accepted inquiry -> formal order with quantity/delivery
+- [x] Order status tracking: confirmed, in-transit, delivered, cancelled
+- [x] Farmer dashboard: manage orders (update status, view details)
+- [x] Buyer dashboard: view order status and delivery progress
+- [x] Unit tests for new order procedures
+- [x] Custom auth: signup form (name, email, phone, location, password)
+- [x] Custom auth: login form with email + password
+- [x] Password hashing with bcryptjs (12 rounds)
+- [x] Secure session management with JWT (30-day expiry)
+- [x] Input validation and sanitization (email check, password min length, duplicate check)
+- [x] Signup and Login pages with proper UI
+- [x] Replace OAuth login flow with custom auth (all pages migrated)
+- [x] Fix signup session: JWT openId now uses deterministic email-based openId
+- [x] Add server-side email format validation and input sanitization on signup/login
+- [x] Legacy OAuth routes kept for admin access, custom auth is primary entry point
+- [x] Signup openId now deterministic; JWT session correctly uses stored openId for user resolution
+- [x] OAuth restricted to admin (OWNER_OPEN_ID) only; all other users must use email/password
+- [ ] Add backend test for custom auth signup + login + session resolution flow
