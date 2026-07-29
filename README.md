@@ -101,6 +101,12 @@ sudo certbot --nginx -d your-domain.com
 
 Re-run `bash deploy/deploy.sh` (as the `sensi` user, with passwordless sudo for `systemctl restart sensi`, or just run the restart manually) to pull latest changes and redeploy.
 
+## CY174 GCP Deployment Guide
+
+For the full GCP setup (Cloud Run, Cloud SQL, Cloud Armor WAF, IAM,
+Secret Manager) mapped to the CY174 assignment tasks, see
+[`docs/CY174-GCP-GUIDE.md`](docs/CY174-GCP-GUIDE.md).
+
 ## Project Structure
 
 ```
