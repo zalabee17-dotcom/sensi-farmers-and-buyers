@@ -73,18 +73,25 @@ pnpm start
 
 ## Deploying to Ubuntu
 
-See [`deploy/`](deploy/) for a ready-to-use Nginx reverse proxy config and deploy script.
+See [`deploy/`](deploy/) for a ready-to-use Nginx reverse proxy config, systemd unit, and deploy script.
 
 ```bash
 sudo apt update && sudo apt install -y nginx mysql-server
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
-npm install -g pnpm pm2
+npm install -g pnpm
 
-git clone https://github.com/zalabee17-dotcom/sensi-farmers-and-buyers.git
-cd sensi-farmers-and-buyers
-cp deploy/.env.example .env   # fill in real DATABASE_URL / JWT_SECRET
-bash deploy/deploy.sh
+# run the app as its own user, not root
+sudo useradd -m -s /usr/sbin/nologin sensi
+sudo -u sensi git clone https://github.com/zalabee17-dotcom/sensi-farmers-and-buyers.git /home/sensi/sensi-farmers-and-buyers
+cd /home/sensi/sensi-farmers-and-buyers
+sudo -u sensi cp deploy/.env.example .env   # fill in real DATABASE_URL / JWT_SECRET
+sudo -u sensi bash deploy/deploy.sh || true # first run builds dist/, service start comes next
+
+sudo cp deploy/sensi.service /etc/systemd/system/sensi.service
+# edit User=/WorkingDirectory=/EnvironmentFile= in the unit if you used a different user or path
+sudo systemctl daemon-reload
+sudo systemctl enable --now sensi
 
 sudo cp deploy/nginx.conf /etc/nginx/sites-available/sensi
 sudo ln -s /etc/nginx/sites-available/sensi /etc/nginx/sites-enabled/sensi
@@ -92,7 +99,7 @@ sudo nginx -t && sudo systemctl reload nginx
 sudo certbot --nginx -d your-domain.com
 ```
 
-Re-run `bash deploy/deploy.sh` to pull latest changes and redeploy.
+Re-run `bash deploy/deploy.sh` (as the `sensi` user, with passwordless sudo for `systemctl restart sensi`, or just run the restart manually) to pull latest changes and redeploy.
 
 ## Project Structure
 

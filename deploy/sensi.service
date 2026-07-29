@@ -1,0 +1,15 @@
+[Unit]
+Description=Sensi Cloud Platform
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=sensi
+WorkingDirectory=/home/sensi/sensi-farmers-and-buyers
+EnvironmentFile=/home/sensi/sensi-farmers-and-buyers/.env
+ExecStart=/usr/bin/node dist/index.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
